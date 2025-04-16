@@ -1,0 +1,366 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Hexo: configure and deployment | Yuetu的个人博客</title>
+    <meta name="author" content="Yuetu" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>YUETU的个人博客</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;YUETU的个人博客</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Hexo: configure and deployment</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/4/1
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Configure/" style="color: #00bcd4">
+                    Configure
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Hexo/" style="color: #ff7d73">
+                    Hexo
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p><code>Hexo</code>对不太会设计博客网站，但又想快速搭建博客网站的初学者的一个比较友好的博客开发脚手架。</p>
+<span id="more"></span>
+
+<p>但是呢，对于刚上手<code>Hexo</code>的人直接看<code>官方文档</code>进行网站设置还是有点难度的<del>（官方文档不当人）</del>。</p>
+<p>因此，本文章对<code>Hexo</code>进行一个概括性的补充。</p>
+<h2 id="1-博客项目搭建"><a href="#1-博客项目搭建" class="headerlink" title="1. 博客项目搭建"></a>1. 博客项目搭建</h2><h5 id="全局安装"><a href="#全局安装" class="headerlink" title="全局安装"></a>全局安装</h5><pre><code class="language-bash">npm install -g hexo-cli
+</code></pre>
+<h5 id="1-1-项目初始化"><a href="#1-1-项目初始化" class="headerlink" title="1.1 项目初始化"></a>1.1 项目初始化</h5><p>在你想要存放博客项目的目录中输入命令：</p>
+<pre><code class="language-bash">hexo init &lt;your-project-name&gt;
+</code></pre>
+<p>然后安装依赖：</p>
+<pre><code class="language-bash">npm install
+</code></pre>
+<p>启动服务，验证博客网站的完整性：</p>
+<pre><code class="language-bash">hexo server # 或者 hexo s
+</code></pre>
+<h5 id="1-2-配置标签页-tags-和分类页-categories"><a href="#1-2-配置标签页-tags-和分类页-categories" class="headerlink" title="1.2 配置标签页 tags 和分类页 categories"></a>1.2 配置标签页 <code>tags</code> 和分类页 <code>categories</code></h5><p>默认情况下，初始化项目后开启服务<code>hexo server</code>是看不到这两类页面，就算是在 <code>URL</code>上写，也会直接报 <code style="color: red">404</code> 错误。（文档没说怎么开启）。</p>
+<ol>
+<li><p>首先是在根目录下的<code>source</code>文件夹创建<code>tags</code>文件夹和<code>categories</code>文件夹。</p>
+</li>
+<li><p>创建子页面</p>
+</li>
+</ol>
+<pre><code class="language-bash"># 创建标签tags页
+## 分类页类似
+hexo new page &quot;tags&quot;
+</code></pre>
+<ol start="3">
+<li>修改子页面的内容</li>
+</ol>
+<pre><code>---
+title: tags
+type: tags
+layout: &quot;tags&quot;
+---
+</code></pre>
+<ol start="4">
+<li>配置主题theme目录下对应的配置文件:</li>
+</ol>
+<p>我的因为使用了第三方的主题，所以直接在<code>_config.yml</code>文件里编辑了；但一般情况下，第三方的主题已设置。</p>
+<pre><code class="language-yml">nav:
+  home: /
+  about: /about
+  tags: /tags
+</code></pre>
+<h5 id="1-3-配置-About-页面"><a href="#1-3-配置-About-页面" class="headerlink" title="1.3 配置 About 页面"></a>1.3 配置 <code>About</code> 页面</h5><p>参考 <code>1.2</code> 进行设置。</p>
+<h2 id="2-编写文章"><a href="#2-编写文章" class="headerlink" title="2. 编写文章"></a>2. 编写文章</h2><blockquote>
+<p>个人的文章编辑、发布流程：<code>hexo new draft &quot;blog-name&quot;</code> -&gt; <code>hexo s --draft</code> -&gt; <code>hexo publish &quot;blog-name&quot;</code> -&gt; <code>hexo d</code></p>
+</blockquote>
+<h5 id="2-1-创建（草稿）文章："><a href="#2-1-创建（草稿）文章：" class="headerlink" title="2.1 创建（草稿）文章："></a>2.1 创建（草稿）文章：</h5><pre><code class="language-bash">hexo new draft &quot;your article name&quot; 
+</code></pre>
+<p>使用<code>draft</code>进行文章编辑 + <code>hexo s --draft</code>的模式可以在不需要重复执行<code>hexo s</code>就可以实时浏览自己文章的展示效果（但要刷新页面)。<br>确定最终稿后使用<code>hexo publish &quot;【文章文件名】&quot;</code>将其放置得到post目录进行随后的博客展示。</p>
+<h5 id="2-2-文章基本结构"><a href="#2-2-文章基本结构" class="headerlink" title="2.2 文章基本结构"></a>2.2 文章基本结构</h5><pre><code>---
+title: &#39;title&#39;
+date: 2023/6/12 20:12:00
+tags: 
+  - tags1
+  - tags2
+categories:
+  - c1
+  - c2
+---
+
+...文章的简介
+
+&lt;!-- more --&gt; # 这个是在首页展示文章时不展示该标签以下的内容
+</code></pre>
+<blockquote>
+<p><code>&lt;!-- more --&gt;</code> 标签的上面要有一些摘要才能生效;<br><code>date</code> 标签，hexo一般会根据当前时间进行设置，可以不写。</p>
+</blockquote>
+<p>执行本地命令查看实现效果：</p>
+<pre><code class="language-bash">hexo s --draft
+</code></pre>
+<p>发布到<code>_posts</code>目录：</p>
+<pre><code class="language-bash">hexo publish [layout] &quot;title&quot;
+</code></pre>
+<h2 id="3-远程仓库部署"><a href="#3-远程仓库部署" class="headerlink" title="3. 远程仓库部署"></a>3. 远程仓库部署</h2><blockquote>
+<p>本文中使用的是 <code>Git + GitHub + SSH</code>，以及声明仓库为 <code>public</code>（为了白嫖） 。</p>
+</blockquote>
+<h5 id="3-1-配置-SSH-密钥-和-远程仓库-密钥设置"><a href="#3-1-配置-SSH-密钥-和-远程仓库-密钥设置" class="headerlink" title="3.1 配置 SSH 密钥 和 远程仓库 密钥设置"></a>3.1 配置 SSH 密钥 和 远程仓库 密钥设置</h5><p>打开终端输入命令：</p>
+<pre><code class="language-bash">ssh-keygen -t ed25519 -C &lt;email&gt;
+</code></pre>
+<p><code>email</code>是你GitHub的登录邮箱。</p>
+<p>然后添加到 <code>SSH Agent</code>。</p>
+<pre><code class="language-bash">eval &quot;$(ssh-agent -s)&quot;
+ssh-add ~/.ssh/id_ed25519
+</code></pre>
+<h5 id="3-2-配置-GitHub-仓库"><a href="#3-2-配置-GitHub-仓库" class="headerlink" title="3.2 配置 GitHub 仓库"></a>3.2 配置 GitHub 仓库</h5><ol>
+<li><p>自行新建仓库，唯一主要的是仓库名为<code>&lt;your-github-name&gt;.github.io</code>，和 <code>public</code>开放仓库。</p>
+</li>
+<li><p>新建好仓库后，复制 <code>SSH</code> 的url链接，留给下文使用。</p>
+</li>
+</ol>
+<h5 id="3-3-本地项目设置"><a href="#3-3-本地项目设置" class="headerlink" title="3.3 本地项目设置"></a>3.3 本地项目设置</h5><ol>
+<li>安装依赖</li>
+</ol>
+<pre><code class="language-bash">npm install hexo-deployer-git --save
+</code></pre>
+<ol start="2">
+<li>编辑配置文件</li>
+</ol>
+<pre><code class="language-yml">deploy:
+  type: git
+  # 将刚才的链接粘贴到repo这里
+  ## example, git@github.com:hexo/hexo.github.io.git
+  repo: git@github.com:&lt;your-github-name&gt;/&lt;your-github-repositories&gt;.github.io.git
+  branch: main
+</code></pre>
+<blockquote>
+<p>注意：如果你有多个密钥，请在<code>~/.ssh/config</code>中配置对应的密钥别名，然后将 <code>repo</code> 中的 <code>github.com</code> 换成你对应的密钥别名，<br>比如：<a href="mailto:&#x67;&#105;&#116;&#x40;&#x67;&#x69;&#x74;&#104;&#x75;&#x62;&#46;&#99;&#x6f;&#x6d;&#x2d;&#x66;&#x69;&#114;&#115;&#116;">git@github.com-first</a>:<your-github-name>&#x2F;<your-github-repositories>.github.io.git</p>
+</blockquote>
+<h5 id="3-4-远程部署"><a href="#3-4-远程部署" class="headerlink" title="3.4 远程部署"></a>3.4 远程部署</h5><blockquote>
+<p>在部署前请检查你 git 当前的 <code>user.name</code> 和 <code>user.email</code>.<br>命令 <code>git config &lt;--global&gt; user.name</code> 和 <code>git config &lt;--global&gt; user.email</code>;<br>如果你想在当前项目下另设别的github账户，去掉 <code>--global</code> 并在对应命令后面加上你的”githubName” 和 “githubEmail”</p>
+</blockquote>
+<ol>
+<li><p><code>hexo clean</code>(或者<code>hexo cl</code>)：清空生产的缓存文件（public文件夹和deploy_git文件夹）;</p>
+</li>
+<li><p><code>hexo generate</code>(<code>hexo g</code>)：生成要上传的静态文件;</p>
+</li>
+<li><p><code>hexo deploy</code>(<code>hexo d</code>)：远程部署；</p>
+</li>
+<li><p>访问你的<name>.github.io网站。<br>如果遇到<code>404</code>报错不要慌，因为GitHub要部署你的博客网站一般在10分钟左右，让子弹飞一会。</p>
+</li>
+</ol>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2025 - 2025 Yuetu的个人博客
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Yuetu
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>
