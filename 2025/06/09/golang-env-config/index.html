@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>tags | Yuetu的个人博客</title>
+    <title>golang env config | Yuetu的个人博客</title>
     <meta name="author" content="Yuetu" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -37,6 +37,10 @@
 
 
 <script src="/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -150,45 +154,103 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        
-        <span>
-            <a href="/tags/env-config/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                env config
-            </a>
+            <div class="article">
+    <div>
+        <h1>golang env config</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/6/9
         </span>
         
         
-        
-        <span>
-            <a href="/tags/Configure/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                Configure
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/env-config/" style="color: #00bcd4">
+                    env config
+                </a>
+            </span>
+            
         </span>
-        
-        
-        
-        <span>
-            <a href="/tags/Hexo/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                Hexo
-            </a>
-        </span>
-        
         
     </div>
+    
+    <div class="content" v-pre>
+        <p>Go language Linux 环境安装与配置</p>
+<span id="more"></span>
+
+<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="官网教程安装"><a href="#官网教程安装" class="headerlink" title="官网教程安装"></a>官网教程安装</h3><blockquote>
+<p>官网安装配置文档： <a target="_blank" rel="noopener" href="https://go.dev/doc/install">https://go.dev/doc/install</a><br>安装包： <a target="_blank" rel="noopener" href="https://go.dev/dl/">https://go.dev/dl/</a></p>
+</blockquote>
+<ol>
+<li>将安装包放置到 <code>/home/yourname</code> 下，解压到对应的 <code>/usr/local</code> 目录下（默认使用 <code>root</code> 权限）：</li>
+</ol>
+<pre><code class="language-bash">rm -rf /usr/local/go &amp;&amp; tar -C /usr/local -xzf go1.24.4.linux-amd64.tar.gz
+</code></pre>
+<ol start="2">
+<li>将 golang 的环境添加到系统变量中：</li>
+</ol>
+<blockquote>
+<p>好处：全局使用go指令，不需要切换到go的安装环境下使用指令；防止个人的源码污染 <code>go</code> 环境。</p>
+</blockquote>
+<pre><code class="language-bash">export PATH=$PATH:/usr/local/go/bin
+</code></pre>
+<ol start="3">
+<li>验证 <code>go</code> 的全局使用(root用户 和 普通用户)：</li>
+</ol>
+<pre><code class="language-bash">go version
+</code></pre>
+<h3 id="解决重启-or-重登-后的-golang-失效"><a href="#解决重启-or-重登-后的-golang-失效" class="headerlink" title="解决重启 or 重登 后的 golang 失效"></a>解决重启 or 重登 后的 golang 失效</h3><blockquote>
+<p>参考文章: <a target="_blank" rel="noopener" href="https://blog.csdn.net/super_xyo/article/details/128210788">https://blog.csdn.net/super_xyo/article/details/128210788</a></p>
+</blockquote>
+<h4 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h4><ol>
+<li>使用 vim 打开并配置 <code>/etc/profile</code>(不会用<code>vim</code> or <code>vi</code>的请自行百度):</li>
+</ol>
+<blockquote>
+<p>注意：是 <code>/etc</code> 目录下 <code>profile</code> 文件 或者 <code>profile.d</code> 文件,<br>无关是普通用户，root用户；并且切换用户并是 <code>cd ~</code> 时本质上是切换到对应用户下的<code>根路径</code>,<br>而非 OS 根路径， <code>/etc</code> 是 OS 根路径下的一个目录（文件夹）</p>
+</blockquote>
+<p>添加以下命令并保存：</p>
+<pre><code># golang env config
+
+export GOROOT=/usr/local/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+</code></pre>
+<ol start="2">
+<li>重新加载 <code>profile</code> 文件使环境变量生效：</li>
+</ol>
+<pre><code class="language-bash">source /etc/profile
+</code></pre>
+<ol start="3">
+<li>切换不同用户验证go指令 (以及退出重登验证)：</li>
+</ol>
+<pre><code class="language-bash">go version
+</code></pre>
+<h2 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h2><blockquote>
+<p>由于国内 <code>长城防火墙</code> 的原因，开发者访问外网获取对应的开发依赖普遍存在下载缓慢或者下载失败的情况，<br>这个时候就需要添加一些第三方代理的URI，如阿里、京东、腾讯等代理商，下载所需的依赖包。<br>这些代理本质上是将对应的依赖包下载保存至代理服务器上，让国内的开发者到对应的代理服务器上找到并下载依赖。</p>
+</blockquote>
+<p>添加指令：</p>
+<pre><code class="language-bash">go env -w GOPROXY=https://goproxy.cn,direct
+</code></pre>
+<p>检查 go 环境变量：</p>
+<pre><code class="language-bash">go env
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    
+    
     
 </div>
 
@@ -220,6 +282,12 @@
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+
+
+
+
     
 </body>
 </html>
